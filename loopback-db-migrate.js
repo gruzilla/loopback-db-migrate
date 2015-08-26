@@ -9,7 +9,9 @@ var fs = require('fs'),
     dateSinceFilter = (dateSinceFlag > -1) ? process.argv[dateSinceFlag + 1] : '',
     migrationsFolder = process.cwd() + '/server/migrations/',
     dbMigrationsFolder = migrationsFolder+dbName,
-    datasource = require(process.cwd() + '/server/server.js').dataSources[dbName];
+    loopbackFlag = process.argv.indexOf('--loopback'),
+    loopbackScript = (loopbackFlag > -1) ? process.argv[loopbackFlag + 1] : '',
+    datasource = require(process.cwd() + '/server' + (loopbackScript ? '/' + loopbackScript : '')).dataSources[dbName];
 
 if (!datasource) {
     console.log('datasource \'' + dbName + '\' not found!');
